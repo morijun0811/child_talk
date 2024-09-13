@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>音声認識アプリ</title>
+    <script>
+        function startRecognition() {
+            fetch('/start', {
+                method: 'POST'
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                updateStatus();
+            });
+        }
+
+        function stopRecognition() {
+            fetch('/stop', {
+                method: 'POST'
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                updateStatus();
+            });
+        }
+
+        setInterval(updateStatus, 1000); // 1秒ごとにステータスを更新
+    </script>
+</head>
+<body>
+    <h1>音声認識アプリ</h1>
+    <button onclick="startRecognition()">音声認識開始</button>
+    <button onclick="stopRecognition()">音声認識停止</button>
+    <p id="status">Stopped</p>
+    <p>認識結果: <span id="result"></span></p>
+</body>
+</html>
